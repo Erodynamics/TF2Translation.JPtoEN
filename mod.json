@@ -1,6 +1,6 @@
 {
 	"Name" : "Translation.JPtoEN",
 	"Description" : "Translates the Japanese UI to English. USE WITH JAPANESE TITANFALL 2, DOES NOT COME WITH JAPANESE VOICE OVERS.",
-	"Version": "1.0.1",
+	"Version": "1.0.3",
 	"LoadPriority": 2
 }

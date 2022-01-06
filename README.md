@@ -10,7 +10,7 @@ Using Prepacked:
 2. Drag and drop the items inside TF2Translation.JPtoEN/prepack/vpk into your Titanfall 2/vpk folder.
 3. Place the patchForJapanese.bat and restoreJapanese.bat file inside the main folder of your game and run the patching batch file.
 
-This process is reversable by deleting englishclient_frontend.bsp.pak000_dir.vpk and running restoreJapanese.bat and replacing it with the backup provided.
+This process is reversable by deleting englishclient_frontend.bsp.pak000_dir.vpk, running restoreJapanese.bat and replacing the VPK with the backup provided.
 If any other modifications have been done to the englishclient_frontend file, they may not work. Please create your own VPK using the files provided inside the TF2Translation.JPtoEN/mod folder.
 
 Using Northstar (Currently not recommended, will crash your game)
