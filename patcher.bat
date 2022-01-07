@@ -1,6 +1,5 @@
 @ECHO OFF
 SETLOCAL
-
 rem Checks if resources are available.
 if not exist prepack (
 	echo Resources not found. Please extract all files.
@@ -8,20 +7,15 @@ if not exist prepack (
 )
 
 rem Asks user for Titanfall 2 directory.
-set tf2Dir=%~dp0
+echo Please paste your Titanfall 2 directory.
+set /p tf2Dir=
+echo %tf2Dir%
+cd /d "%tf2Dir%"
 if not exist Titanfall2.exe (
-	echo Please paste your Titanfall 2 directory.
-	set /p tf2Dir=
-	cd /d %tf2Dir%
-	if not exist Titanfall2.exe (
-		echo Titanfall 2 not found. Exiting...
-		goto :quit
-	)
+	echo Titanfall 2 not found. Exiting...
+	goto :quit
 )
 
-if exist R2Northstar (
-	set northstarExist=1
-)
 cls
 goto menu
 
@@ -34,7 +28,8 @@ echo =====================================
 echo Choose from the following options:
 echo 1. Install VPK files
 echo 2. Uninstall VPK files
-echo 3. Exit
+echo 3. Repatch Northstar (Northstar Required)
+echo 0. Exit
 set /p choice="> "
 
 if %choice% == 1 (
@@ -46,6 +41,14 @@ if %choice% == 2 (
 )
 
 if %choice% == 3 (
+	if exist R2Northstar (
+		goto NSRepatch
+	)
+	echo Northstar not found. Exiting to menu.
+	goto menu
+)
+
+if %choice% == 0 (
 	goto quit
 )
 echo Invalid choice, please choose a valid option.
@@ -58,11 +61,8 @@ cd /d %tf2Dir%
 copy "%~dp0/prepack/vpk/englishclient_frontend.bsp.pak000_dir.vpk" "%tf2Dir%/vpk/englishclient_frontend.bsp.pak000_dir.vpk"
 copy "%~dp0/prepack/vpk/client_frontend.bsp.pak000_228.vpk" "%tf2Dir%/client_frontend.bsp.pak000_228.vpk"
 copy "%~dp0/prepack/vpk/englishclient_frontend.bsp.pak000_dir.vpk.backup" "%tf2Dir%/englishclient_frontend.bsp.pak000_dir.vpk.backup"
-copy 
-if %northstarExist% == 1 (
-	cd "R2Northstar/mods/Northstar.Client/mod/resource"
-	copy "northstar_client_localisation_japanese.txt" "northstar_client_localisation_japanese.txt.backup"
-	copy "northstar_client_localisation_english.txt" "northstar_client_localisation_japanese.txt"
+if exist R2Northstar (
+	goto NSRepatch
 )
 goto quit
 
@@ -75,6 +75,12 @@ copy "vpk/englishclient_frontend.bsp.pak000_dir.vpk.backup" "vpk/englishclient_f
 if %northstarExist = 1 (
 	copy "northstar_client_localisation_japanese.txt.backup" "northstar_client_localisation_japanese.txt"
 )
+goto quit
+
+:NSRepatch
+cd "R2Northstar/mods/Northstar.Client/mod/resource"
+copy "northstar_client_localisation_japanese.txt" "northstar_client_localisation_japanese.txt.backup"
+copy "northstar_client_localisation_english.txt" "northstar_client_localisation_japanese.txt"
 goto quit
 
 :quit
